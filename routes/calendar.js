@@ -34,6 +34,7 @@ router.get('/',
           // Get the events
           var events = await graph.getEvents(accessToken);
           params.events = events.value;
+          console.log(events);
         } catch (err) {
           req.flash('error_msg', {
             message: 'Could not fetch events',

@@ -14,14 +14,49 @@ module.exports = {
 
   getEmails: async function(accessToken) {
     const client = getAuthenticatedClient(accessToken);
-
-    const events = await client
+    
+    const messages = await client
       .api('/me/messages')
-      .select('sender,subject')
+      .select('from,sender,subject,toRecipients')
       .get();
-
-    return events;
+    
+    return messages;
   },
+
+  sendEmail: async function(accessToken) {
+    const client = getAuthenticatedClient(accessToken);
+    console.log('TESTE');
+    const sendTest = {
+      message: {
+        subject: "TESTE EMAIL",
+        body: {
+          contentType: "HTML",
+          content: "EMAIL ENVIADO UTILIZANDO A API DO MICROSOFT GRAPH"
+        },
+        toRecipients: [
+          {
+            emailAddress: {
+              address: "paulo.salles@embraer.com.br"
+            }
+          }
+        ],
+        internetMessageHeaders:[
+          {
+            name:"x-custom-header-group-name",
+            value:"Nevada"
+          },
+          {
+            name:"x-custom-header-group-id",
+            value:"NV001"
+          }
+        ]
+      }
+    };
+    
+    let res = await client.api('/me/sendMail')
+        .post(sendTest);
+  },
+
 
 
   // <GetEventsSnippet>
