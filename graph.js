@@ -36,7 +36,7 @@ module.exports = {
         toRecipients: [
           {
             emailAddress: {
-              address: "paulo.salles@embraer.com.br"
+              address: "teste@teste.com"
             }
           }
         ],
